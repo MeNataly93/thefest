@@ -11,26 +11,73 @@ function makeCall() {
   window.location.href = "tel:+380960352339";
 }
 
-// --Видео внутри TITLE
-const video = document.getElementById("myVideo");
+// // --Видео внутри TITLE
+// const video = document.getElementById("myVideo");
 
+// document.addEventListener("DOMContentLoaded", () => {
+//   const overlayvideo = document.getElementById("overlay-video");
+//   const videoLink = document.getElementById("videoLink");
+//   const videoButton = document.getElementById("videoButton");
+
+//   const showOverlay = () => {
+//     overlayvideo.style.display = "flex";
+//     video.play(); // ▶️ запуск видео
+//     // videoContainer.style.display = "block";
+//   };
+
+//   const hideOverlay = () => {
+//     overlayvideo.style.display = "none";
+
+//     video.pause(); // ⏸ остановка
+//     video.currentTime = 0; // ⏮ сброс на начало
+//     // videoContainer.style.display = "none";
+//   };
+
+//   videoLink.addEventListener("click", (event) => {
+//     event.preventDefault();
+//     showOverlay();
+//   });
+
+//   videoButton.addEventListener("click", (event) => {
+//     event.preventDefault();
+//     showOverlay();
+//   });
+
+//   overlayvideo.addEventListener("click", function (event) {
+//     event.preventDefault(); // Prevent default link behavior
+//     if (overlayvideo.style.display == "flex") {
+//       hideOverlay();
+//     } else {
+//       showOverlay();
+//     }
+//   });
+//   // Чтобы клик внутри видео не закрывал его
+//   const videoContainer = document.querySelector(".video-container");
+
+//   videoContainer.addEventListener("click", (event) => {
+//     event.stopPropagation();
+//   });
+// });
+
+// -- Видео внутри TITLE с YouTube iframe
 document.addEventListener("DOMContentLoaded", () => {
   const overlayvideo = document.getElementById("overlay-video");
   const videoLink = document.getElementById("videoLink");
   const videoButton = document.getElementById("videoButton");
+  const videoContainer = document.querySelector(".video-container");
+  const iframe = videoContainer.querySelector("iframe");
+  const videoSrc = iframe.src; // сохраняем исходный src
 
   const showOverlay = () => {
     overlayvideo.style.display = "flex";
-    video.play(); // ▶️ запуск видео
-    // videoContainer.style.display = "block";
+    // Вставляем src, чтобы видео начинало проигрываться
+    iframe.src = videoSrc + "?autoplay=1";
   };
 
   const hideOverlay = () => {
     overlayvideo.style.display = "none";
-
-    video.pause(); // ⏸ остановка
-    video.currentTime = 0; // ⏮ сброс на начало
-    // videoContainer.style.display = "none";
+    // Убираем src, чтобы видео останавливалось
+    iframe.src = "";
   };
 
   videoLink.addEventListener("click", (event) => {
@@ -43,17 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     showOverlay();
   });
 
-  overlayvideo.addEventListener("click", function (event) {
-    event.preventDefault(); // Prevent default link behavior
-    if (overlayvideo.style.display == "flex") {
-      hideOverlay();
-    } else {
-      showOverlay();
-    }
+  overlayvideo.addEventListener("click", function () {
+    hideOverlay();
   });
-  // Чтобы клик внутри видео не закрывал его
-  const videoContainer = document.querySelector(".video-container");
 
+  // Чтобы клик внутри видео не закрывал overlay
   videoContainer.addEventListener("click", (event) => {
     event.stopPropagation();
   });
@@ -527,187 +568,271 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// --Всплывающие блоки с героями при нажатии - открытие всплывающего блока
+// // --Всплывающие блоки с героями при нажатии - открытие всплывающего блока
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   const helterblock = document.getElementById("helter");
+//   const heroes = document.getElementById("helter-grid");
+//   const heroesBlock1 = document.querySelector(".heroes_grid_block_1");
+//   const overlay1 = document.querySelector(".overlayhelter_1");
+//   const closeBtn1 = document.querySelector(".overlayhelter_1 .close-button_1");
+//   const heroesBlock2 = document.querySelector(".heroes_grid_block_2");
+//   const overlay2 = document.querySelector(".overlayhelter_2");
+//   const closeBtn2 = document.querySelector(".overlayhelter_2 .close-button_2");
+//   const heroesBlock3 = document.querySelector(".heroes_grid_block_3");
+//   const overlay3 = document.querySelector(".overlayhelter_3");
+//   const closeBtn3 = document.querySelector(".overlayhelter_3 .close-button_3");
+//   const heroesBlock4 = document.querySelector(".heroes_grid_block_4");
+//   const overlay4 = document.querySelector(".overlayhelter_4");
+//   const closeBtn4 = document.querySelector(".overlayhelter_4 .close-button_4");
+//   const heroesBlock5 = document.querySelector(".heroes_grid_block_5");
+//   const overlay5 = document.querySelector(".overlayhelter_5");
+//   const closeBtn5 = document.querySelector(".overlayhelter_5 .close-button_5");
+//   const heroesBlock6 = document.querySelector(".heroes_grid_block_6");
+//   const overlay6 = document.querySelector(".overlayhelter_6");
+//   const closeBtn6 = document.querySelector(".overlayhelter_6 .close-button_6");
+//   const heroesBlock7 = document.querySelector(".heroes_grid_block_7");
+//   const overlay7 = document.querySelector(".overlayhelter_7");
+//   const closeBtn7 = document.querySelector(".overlayhelter_7 .close-button_7");
+
+//   // Изначально скрываем overlay (если нужно)
+//   overlay1.style.display = "none";
+//   overlay2.style.display = "none";
+//   overlay3.style.display = "none";
+//   overlay4.style.display = "none";
+//   overlay5.style.display = "none";
+//   overlay6.style.display = "none";
+//   overlay7.style.display = "none";
+
+//   // Открытие overlay
+//   heroesBlock1.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay1.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+
+//   heroesBlock2.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay2.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+
+//   heroesBlock3.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay3.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+
+//   heroesBlock4.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay4.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+//   heroesBlock5.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay5.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+//   heroesBlock6.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay6.style.display = "block";
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+
+//   // БЛОК 7
+//   const video7 = overlay7.querySelector("video");
+//   heroesBlock7.addEventListener("click", function () {
+//     heroes.style.display = "none";
+//     overlay7.style.display = "block";
+//     // ▶️ управление видео
+//     if (video7) {
+//       video7.currentTime = 0; // начать с начала
+//       video7.play(); // запустить
+//     }
+
+//     helterblock.scrollIntoView({
+//       behavior: "smooth",
+//       block: "center",
+//     });
+//   });
+
+//   // Закрытие overlay
+//   closeBtn1.addEventListener("click", function () {
+//     overlay1.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+
+//   closeBtn2.addEventListener("click", function () {
+//     overlay2.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+
+//   closeBtn3.addEventListener("click", function () {
+//     overlay3.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+
+//   closeBtn4.addEventListener("click", function () {
+//     overlay4.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+//   closeBtn5.addEventListener("click", function () {
+//     overlay5.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+//   closeBtn6.addEventListener("click", function () {
+//     overlay6.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+//   closeBtn7.addEventListener("click", function () {
+//     overlay7.style.display = "none";
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//       heroes.style.display = "block";
+//     } else {
+//       heroes.style.display = "grid";
+//     }
+//   });
+// });
+
+// // Остановка видео в блоке Sqwid
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const squidOverlay = document.querySelector(".overlayhelter_7");
+//   const squidCloseBtn = document.querySelector(".close-button_7");
+//   const squidVideo = document.querySelector(".overlayhelter_7 video");
+
+//   if (squidCloseBtn && squidOverlay && squidVideo) {
+//     squidCloseBtn.addEventListener("click", () => {
+//       squidOverlay.style.display = "none";
+
+//       squidVideo.pause(); // ⏸ стоп
+//       squidVideo.currentTime = 0; // ⏮ в начало
+//     });
+//   }
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
   const helterblock = document.getElementById("helter");
   const heroes = document.getElementById("helter-grid");
-  const heroesBlock1 = document.querySelector(".heroes_grid_block_1");
-  const overlay1 = document.querySelector(".overlayhelter_1");
-  const closeBtn1 = document.querySelector(".overlayhelter_1 .close-button_1");
-  const heroesBlock2 = document.querySelector(".heroes_grid_block_2");
-  const overlay2 = document.querySelector(".overlayhelter_2");
-  const closeBtn2 = document.querySelector(".overlayhelter_2 .close-button_2");
-  const heroesBlock3 = document.querySelector(".heroes_grid_block_3");
-  const overlay3 = document.querySelector(".overlayhelter_3");
-  const closeBtn3 = document.querySelector(".overlayhelter_3 .close-button_3");
-  const heroesBlock4 = document.querySelector(".heroes_grid_block_4");
-  const overlay4 = document.querySelector(".overlayhelter_4");
-  const closeBtn4 = document.querySelector(".overlayhelter_4 .close-button_4");
-  const heroesBlock5 = document.querySelector(".heroes_grid_block_5");
-  const overlay5 = document.querySelector(".overlayhelter_5");
-  const closeBtn5 = document.querySelector(".overlayhelter_5 .close-button_5");
-  const heroesBlock6 = document.querySelector(".heroes_grid_block_6");
-  const overlay6 = document.querySelector(".overlayhelter_6");
-  const closeBtn6 = document.querySelector(".overlayhelter_6 .close-button_6");
-  const heroesBlock7 = document.querySelector(".heroes_grid_block_7");
-  const overlay7 = document.querySelector(".overlayhelter_7");
-  const closeBtn7 = document.querySelector(".overlayhelter_7 .close-button_7");
 
-  // Изначально скрываем overlay (если нужно)
-  overlay1.style.display = "none";
-  overlay2.style.display = "none";
-  overlay3.style.display = "none";
-  overlay4.style.display = "none";
-  overlay5.style.display = "none";
-  overlay6.style.display = "none";
-  overlay7.style.display = "none";
+  // Создаём массивы для блоков и overlay
+  const heroBlocks = [
+    document.querySelector(".heroes_grid_block_1"),
+    document.querySelector(".heroes_grid_block_2"),
+    document.querySelector(".heroes_grid_block_3"),
+    document.querySelector(".heroes_grid_block_4"),
+    document.querySelector(".heroes_grid_block_5"),
+    document.querySelector(".heroes_grid_block_6"),
+    document.querySelector(".heroes_grid_block_7"),
+  ];
 
-  // Открытие overlay
-  heroesBlock1.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay1.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
+  const overlays = [
+    document.querySelector(".overlayhelter_1"),
+    document.querySelector(".overlayhelter_2"),
+    document.querySelector(".overlayhelter_3"),
+    document.querySelector(".overlayhelter_4"),
+    document.querySelector(".overlayhelter_5"),
+    document.querySelector(".overlayhelter_6"),
+    document.querySelector(".overlayhelter_7"),
+  ];
+
+  const closeBtns = [
+    document.querySelector(".overlayhelter_1 .close-button_1"),
+    document.querySelector(".overlayhelter_2 .close-button_2"),
+    document.querySelector(".overlayhelter_3 .close-button_3"),
+    document.querySelector(".overlayhelter_4 .close-button_4"),
+    document.querySelector(".overlayhelter_5 .close-button_5"),
+    document.querySelector(".overlayhelter_6 .close-button_6"),
+    document.querySelector(".overlayhelter_7 .close-button_7"),
+  ];
+
+  // Сохраняем исходные src iframe (для блока 7 — и остальных, если тоже iframe)
+  const iframeSources = overlays.map((overlay) => {
+    const iframe = overlay.querySelector("iframe");
+    return iframe ? iframe.src : null;
+  });
+
+  // Изначально скрываем все overlay
+  overlays.forEach((overlay) => (overlay.style.display = "none"));
+
+  heroBlocks.forEach((block, index) => {
+    block.addEventListener("click", () => {
+      heroes.style.display = "none";
+      const overlay = overlays[index];
+      overlay.style.display = "block";
+
+      // Если в overlay есть iframe, добавляем autoplay
+      const iframe = overlay.querySelector("iframe");
+      if (iframe && iframeSources[index]) {
+        iframe.src = iframeSources[index] + "?autoplay=1";
+      }
+
+      helterblock.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     });
   });
 
-  heroesBlock2.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay2.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
+  closeBtns.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      const overlay = overlays[index];
+      overlay.style.display = "none";
+
+      // Если есть iframe — останавливаем видео
+      const iframe = overlay.querySelector("iframe");
+      if (iframe) {
+        iframe.src = ""; // останавливаем видео
+      }
+
+      // Показываем грид снова
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        heroes.style.display = "block";
+      } else {
+        heroes.style.display = "grid";
+      }
     });
   });
-
-  heroesBlock3.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay3.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  });
-
-  heroesBlock4.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay4.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  });
-  heroesBlock5.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay5.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  });
-  heroesBlock6.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay6.style.display = "block";
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  });
-
-  // БЛОК 7
-  const video7 = overlay7.querySelector("video");
-  heroesBlock7.addEventListener("click", function () {
-    heroes.style.display = "none";
-    overlay7.style.display = "block";
-    // ▶️ управление видео
-    if (video7) {
-      video7.currentTime = 0; // начать с начала
-      video7.play(); // запустить
-    }
-
-    helterblock.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  });
-
-  // Закрытие overlay
-  closeBtn1.addEventListener("click", function () {
-    overlay1.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-
-  closeBtn2.addEventListener("click", function () {
-    overlay2.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-
-  closeBtn3.addEventListener("click", function () {
-    overlay3.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-
-  closeBtn4.addEventListener("click", function () {
-    overlay4.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-  closeBtn5.addEventListener("click", function () {
-    overlay5.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-  closeBtn6.addEventListener("click", function () {
-    overlay6.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-  closeBtn7.addEventListener("click", function () {
-    overlay7.style.display = "none";
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      heroes.style.display = "block";
-    } else {
-      heroes.style.display = "grid";
-    }
-  });
-});
-
-// Остановка видео в блоке Sqwid
-
-document.addEventListener("DOMContentLoaded", () => {
-  const squidOverlay = document.querySelector(".overlayhelter_7");
-  const squidCloseBtn = document.querySelector(".close-button_7");
-  const squidVideo = document.querySelector(".overlayhelter_7 video");
-
-  if (squidCloseBtn && squidOverlay && squidVideo) {
-    squidCloseBtn.addEventListener("click", () => {
-      squidOverlay.style.display = "none";
-
-      squidVideo.pause(); // ⏸ стоп
-      squidVideo.currentTime = 0; // ⏮ в начало
-    });
-  }
 });
