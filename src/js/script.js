@@ -12,6 +12,8 @@ function makeCall() {
 }
 
 // --Видео внутри TITLE
+const video = document.getElementById("myVideo");
+
 document.addEventListener("DOMContentLoaded", () => {
   const overlayvideo = document.getElementById("overlay-video");
   const videoLink = document.getElementById("videoLink");
@@ -19,11 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const showOverlay = () => {
     overlayvideo.style.display = "flex";
+    video.play(); // ▶️ запуск видео
     // videoContainer.style.display = "block";
   };
 
   const hideOverlay = () => {
     overlayvideo.style.display = "none";
+
+    video.pause(); // ⏸ остановка
+    video.currentTime = 0; // ⏮ сброс на начало
     // videoContainer.style.display = "none";
   };
 
@@ -44,6 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       showOverlay();
     }
+  });
+  // Чтобы клик внутри видео не закрывал его
+  const videoContainer = document.querySelector(".video-container");
+
+  videoContainer.addEventListener("click", (event) => {
+    event.stopPropagation();
   });
 });
 
@@ -603,9 +615,18 @@ document.addEventListener("DOMContentLoaded", function () {
       block: "center",
     });
   });
+
+  // БЛОК 7
+  const video7 = overlay7.querySelector("video");
   heroesBlock7.addEventListener("click", function () {
     heroes.style.display = "none";
     overlay7.style.display = "block";
+    // ▶️ управление видео
+    if (video7) {
+      video7.currentTime = 0; // начать с начала
+      video7.play(); // запустить
+    }
+
     helterblock.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -672,4 +693,21 @@ document.addEventListener("DOMContentLoaded", function () {
       heroes.style.display = "grid";
     }
   });
+});
+
+// Остановка видео в блоке Sqwid
+
+document.addEventListener("DOMContentLoaded", () => {
+  const squidOverlay = document.querySelector(".overlayhelter_7");
+  const squidCloseBtn = document.querySelector(".close-button_7");
+  const squidVideo = document.querySelector(".overlayhelter_7 video");
+
+  if (squidCloseBtn && squidOverlay && squidVideo) {
+    squidCloseBtn.addEventListener("click", () => {
+      squidOverlay.style.display = "none";
+
+      squidVideo.pause(); // ⏸ стоп
+      squidVideo.currentTime = 0; // ⏮ в начало
+    });
+  }
 });
