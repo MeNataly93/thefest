@@ -806,7 +806,11 @@ document.addEventListener("DOMContentLoaded", function () {
       // Если в overlay есть iframe, добавляем autoplay
       const iframe = overlay.querySelector("iframe");
       if (iframe && iframeSources[index]) {
-        iframe.src = iframeSources[index] + "?autoplay=1";
+        // iframe.src = iframeSources[index] + "?autoplay=1";
+        const videoId = iframeSources[index].split("/embed/")[1];
+
+        iframe.src =
+          iframeSources[index] + "?autoplay=1&loop=1&playlist=" + videoId;
       }
 
       helterblock.scrollIntoView({
