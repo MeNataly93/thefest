@@ -128,3 +128,23 @@ video {
   width: 100%;
   height: auto;
 }
+
+//Кнопка закрытия
+.close-video {
+  position: absolute;
+  top: -15px; /* немного выше видео */
+  right: -15px; /* немного правее */
+
+  width: 40px;
+  height: 40px;
+
+  font-size: 24px;
+  color: black;
+
+  background: white;
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+  z-index: 10;
+}

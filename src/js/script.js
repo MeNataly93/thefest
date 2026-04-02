@@ -60,23 +60,63 @@ function makeCall() {
 // });
 
 // -- Видео внутри TITLE с YouTube iframe
+// document.addEventListener("DOMContentLoaded", () => {
+//   const overlayvideo = document.getElementById("overlay-video");
+//   const videoLink = document.getElementById("videoLink");
+//   const videoButton = document.getElementById("videoButton");
+//   const videoContainer = document.querySelector(".video-container");
+//   const iframe = videoContainer.querySelector("iframe");
+//   const videoSrc = iframe.src; // сохраняем исходный src
+
+//   const showOverlay = () => {
+//     overlayvideo.style.display = "flex";
+//     // Вставляем src, чтобы видео начинало проигрываться
+//     iframe.src = videoSrc + "?autoplay=1";
+//   };
+
+//   const hideOverlay = () => {
+//     overlayvideo.style.display = "none";
+//     // Убираем src, чтобы видео останавливалось
+//     iframe.src = "";
+//   };
+
+//   videoLink.addEventListener("click", (event) => {
+//     event.preventDefault();
+//     showOverlay();
+//   });
+
+//   videoButton.addEventListener("click", (event) => {
+//     event.preventDefault();
+//     showOverlay();
+//   });
+
+//   overlayvideo.addEventListener("click", function () {
+//     hideOverlay();
+//   });
+
+//   // Чтобы клик внутри видео не закрывал overlay
+//   videoContainer.addEventListener("click", (event) => {
+//     event.stopPropagation();
+//   });
+// });
+
 document.addEventListener("DOMContentLoaded", () => {
   const overlayvideo = document.getElementById("overlay-video");
   const videoLink = document.getElementById("videoLink");
   const videoButton = document.getElementById("videoButton");
   const videoContainer = document.querySelector(".video-container");
   const iframe = videoContainer.querySelector("iframe");
-  const videoSrc = iframe.src; // сохраняем исходный src
+  const closeBtn = document.querySelector(".close-video"); // 👈 ВОТ СЮДА ДОБАВЛЯЕМ
+
+  const videoSrc = iframe.src;
 
   const showOverlay = () => {
     overlayvideo.style.display = "flex";
-    // Вставляем src, чтобы видео начинало проигрываться
     iframe.src = videoSrc + "?autoplay=1";
   };
 
   const hideOverlay = () => {
     overlayvideo.style.display = "none";
-    // Убираем src, чтобы видео останавливалось
     iframe.src = "";
   };
 
@@ -90,11 +130,18 @@ document.addEventListener("DOMContentLoaded", () => {
     showOverlay();
   });
 
-  overlayvideo.addEventListener("click", function () {
-    hideOverlay();
+  // 👇 КНОПКА ЗАКРЫТИЯ
+  closeBtn.addEventListener("click", hideOverlay);
+  closeBtn.addEventListener("touchstart", hideOverlay);
+
+  // закрытие по фону
+  overlayvideo.addEventListener("click", function (event) {
+    if (event.target === overlayvideo) {
+      hideOverlay();
+    }
   });
 
-  // Чтобы клик внутри видео не закрывал overlay
+  // чтобы клик по видео не закрывал
   videoContainer.addEventListener("click", (event) => {
     event.stopPropagation();
   });
